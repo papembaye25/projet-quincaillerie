@@ -7,8 +7,8 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
-    protected $fillable =[
-        'categorie_id',
+    protected $fillable = [
+        'category_id',        // ✅ Corrigé
         'name',
         'slug',
         'description',
@@ -17,36 +17,37 @@ class Product extends Model
         'is_active'
     ];
 
-    //generer automatiquement le slug à partir du nom
     protected static function boot()
     {
         parent::boot();
-        static::creating(function($product){
+        static::creating(function($product) {
             $product->slug = Str::slug($product->name);
         });
     }
 
-    //un produit appartient à une catégorie
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    //un produit peut avoir plusieurs images
     public function images()
     {
         return $this->hasMany(ProductImage::class);
     }
 
-    //ici on recupere l'image principale du produit
     public function primaryImage()
     {
         return $this->hasOne(ProductImage::class)->where('is_primary', true);
     }
 
-    //Maintenant, ici on recupere seulement les produits actifs
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    // ✅ Ajouté
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
     }
 }
