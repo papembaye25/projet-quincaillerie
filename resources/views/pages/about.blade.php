@@ -18,6 +18,10 @@
             Nous proposons une large gamme de produits de qualité : outils,
             matériaux de construction, équipements électriques et de plomberie.
         </p>
+        <p class="text-blue-600 leading-relaxed mb-4">
+            Notre équipe expérimentée est toujours prête à vous conseiller et à
+            vous aider à trouver les solutions adaptées à vos besoins.
+        </p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <div class="text-center p-4 bg-orange-50 rounded-xl">
