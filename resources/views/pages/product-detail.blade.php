@@ -61,7 +61,7 @@
             </p>
 
             {{-- BOUTONS --}}
-            <div class="flex flex-col sm:flex-row gap-3">
+            <d"iv class="flex flex-col sm:flex-row gap-3">
                 <a href="https://wa.me/221775555618?text=Bonjour%2C%20je%20suis%20intéressé%20par%20{{ urlencode($product->name) }}"
                    target="_blank"
                    class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl text-center transition-all duration-300">

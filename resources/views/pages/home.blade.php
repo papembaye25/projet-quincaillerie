@@ -72,7 +72,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="text-center mb-12">
-            <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Notre catalogue</span>
+            <span class="text-orange-500 font-extrabold text-sm uppercase tracking-wider">Notre catalogue</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mt-2">
                 Nos produits vedettes
             </h2>
@@ -141,7 +141,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="text-center mb-12">
-            <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Nos avantages</span>
+            <span class="text-orange-500 font-extrabold text-sm uppercase tracking-wider">Nos avantages</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mt-2">
                 Pourquoi nous choisir ?
             </h2>
@@ -202,7 +202,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="text-center mb-12">
-            <span class="text-orange-500 font-semibold text-sm uppercase tracking-wider">Ce qu'on propose</span>
+            <span class="text-orange-500 font-extrabold text-sm uppercase tracking-wider">Ce qu'on propose</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mt-2">
                 Nos services
             </h2>
