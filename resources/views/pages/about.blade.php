@@ -5,9 +5,9 @@
 <div class="max-w-4xl mx-auto px-4 py-12">
     <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">À Propos de nous</h1>
 
-    <div class="bg-white rounded-xl shadow-md p-8">
+    <div class="bg-white rounded-xl shadow-md p-8 ">
         <h2 class="text-2xl font-bold text-orange-500 mb-4">
-            Quincaillerie Ibrahima Gaye
+            Quincaillerie <span class="text-black uppercase">Ibrahima Gaye</span>
         </h2>
         <p class="text-gray-600 leading-relaxed mb-4">
             Située au cœur de Dakar, la Quincaillerie Ibrahima Gaye est votre
@@ -18,7 +18,7 @@
             Nous proposons une large gamme de produits de qualité : outils,
             matériaux de construction, équipements électriques et de plomberie.
         </p>
-        <p class="text-blue-600 leading-relaxed mb-4">
+        <p class="text-gray-600 leading-relaxed mb-4">
             Notre équipe expérimentée est toujours prête à vous conseiller et à
             vous aider à trouver les solutions adaptées à vos besoins.
         </p>
