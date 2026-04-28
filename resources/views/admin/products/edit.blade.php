@@ -11,9 +11,41 @@
         <h1 class="text-2xl font-bold text-gray-800">✏️ Modifier : {{ $product->name }}</h1>
     </div>
 
+    {{-- Images existantes HORS du formulaire principal --}}
+    @if($product->images->count() > 0)
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-3">
+            Images actuelles
+        </label>
+        <div class="flex flex-wrap gap-3">
+            @foreach($product->images as $image)
+            <div class="relative w-24 h-24">
+                <img src="{{ asset('storage/' . $image->image_path) }}"
+                     class="w-24 h-24 object-cover rounded-xl border border-gray-200">
+                @if($image->is_primary)
+                <span class="absolute bottom-1 left-1 bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded-md">
+                    ⭐
+                </span>
+                @endif
+                <form method="POST"
+                      action="{{ route('admin.products.images.destroy', $image) }}"
+                      onsubmit="return confirm('Supprimer cette image ?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">
+                        ×
+                    </button>
+                </form>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
+
+    {{-- Formulaire principal --}}
     <div class="bg-white rounded-xl shadow-sm p-8">
 
-        {{-- Erreurs --}}
         @if($errors->any())
         <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6">
             <p class="font-medium mb-2">❌ Veuillez corriger les erreurs :</p>
@@ -104,28 +136,6 @@
                               class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all resize-none">{{ old('description', $product->description) }}</textarea>
                 </div>
 
-                {{-- Images existantes --}}
-                @if($product->images->count() > 0)
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">
-                        Images actuelles
-                    </label>
-                    <div class="flex flex-wrap gap-3">
-                        @foreach($product->images as $image)
-                        <div class="relative group">
-                            <img src="{{ asset('storage/' . $image->image_path) }}"
-                                 class="w-24 h-24 object-cover rounded-xl border border-gray-200">
-                            @if($image->is_primary)
-                            <span class="absolute top-1 left-1 bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded-md">
-                                ⭐
-                            </span>
-                            @endif
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                @endif
-
                 {{-- Nouvelles images --}}
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -137,13 +147,15 @@
                                multiple
                                accept="image/*"
                                class="hidden"
-                               id="images">
+                               id="images"
+                               onchange="previewImages(event)">
                         <label for="images" class="cursor-pointer">
                             <span class="text-4xl block mb-2">📸</span>
                             <p class="text-gray-600 font-medium">Cliquez pour ajouter des images</p>
-                            <p class="text-gray-400 text-sm mt-1">JPG, PNG, WEBP — Max 2MB par image</p>
+                            <p class="text-gray-400 text-sm mt-1">JPG, PNG, WEBP</p>
                         </label>
                     </div>
+                    <div id="preview" class="flex flex-wrap gap-3 mt-4"></div>
                 </div>
 
             </div>
@@ -162,5 +174,26 @@
 
         </form>
     </div>
+
+<script>
+function previewImages(event) {
+    const preview = document.getElementById('preview');
+    preview.innerHTML = '';
+    const files = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const div = document.createElement('div');
+            div.className = 'relative';
+            div.innerHTML = `
+                <img src="${e.target.result}"
+                     class="w-24 h-24 object-cover rounded-xl border-2 border-orange-400">
+            `;
+            preview.appendChild(div);
+        }
+        reader.readAsDataURL(files[i]);
+    }
+}
+</script>
 
 @endsection

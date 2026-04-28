@@ -30,7 +30,7 @@
               enctype="multipart/form-data">
             @csrf
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 {{-- Nom --}}
                 <div>
@@ -106,27 +106,30 @@
                 </div>
 
                 {{-- Images --}}
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Images du produit
-                    </label>
-                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-orange-400 transition-colors">
-                        <input type="file"
-                               name="images[]"
-                               multiple
-                               accept="image/*"
-                               class="hidden"
-                               id="images">
-                        <label for="images" class="cursor-pointer">
-                            <span class="text-4xl block mb-2">📸</span>
-                            <p class="text-gray-600 font-medium">Cliquez pour sélectionner des images</p>
-                            <p class="text-gray-400 text-sm mt-1">JPG, PNG, WEBP — Max 2MB par image</p>
-                            <p class="text-orange-500 text-sm mt-1">La première image sera l'image principale</p>
-                        </label>
-                    </div>
-                </div>
-
+        <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+                Images du produit
+            </label>
+            <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-orange-400 transition-colors">
+                <input type="file"
+                    name="images[]"
+                    multiple
+                    accept="image/*"
+                    class="hidden"
+                    id="images"
+                    onchange="previewImages(event)">
+                <label for="images" class="cursor-pointer">
+                    <span class="text-4xl block mb-2">📸</span>
+                    <p class="text-gray-600 font-medium">Cliquez pour sélectionner des images</p>
+                    <p class="text-gray-400 text-sm mt-1">JPG, PNG, WEBP</p>
+                </label>
             </div>
+
+            {{-- Prévisualisation --}}
+            <div id="preview" class="flex flex-wrap gap-3 mt-4"></div>
+        </div>
+
+    </div>
 
             {{-- Boutons --}}
             <div class="flex items-center gap-4 mt-8 pt-6 border-t border-gray-100">
@@ -143,4 +146,27 @@
         </form>
     </div>
 
+<script>
+    function previewImages(event) {
+        const preview = document.getElementById('preview');
+        preview.innerHTML = '';
+        const files = event.target.files;
+        for (let i = 0; i < files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const div = document.createElement('div');
+                div.className = 'relative';
+                div.innerHTML = `
+                    <img src="${e.target.result}"
+                        class="w-24 h-24 object-cover rounded-xl border-2 border-orange-400">
+                    <span class="absolute top-1 left-1 bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded-md">
+                        ${i === 0 ? '⭐ Principal' : ''}
+                    </span>
+                `;
+                preview.appendChild(div);
+            }
+            reader.readAsDataURL(files[i]);
+        }
+    }
+</script>
 @endsection

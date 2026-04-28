@@ -8,9 +8,15 @@
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @forelse($products as $product)
         <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <div class="bg-gray-100 h-48 flex items-center justify-center">
-                <span class="text-gray-400 text-4xl">🔧</span>
-            </div>
+            <div class="bg-gray-100 h-48 flex items-center justify-center overflow-hidden">
+                @if($product->primaryImage)
+                    <img src="{{ asset('storage/' . $product->primaryImage->image_path) }}"
+                        alt="{{ $product->name }}"
+                        class="w-full h-full object-cover">
+                @else
+                    <span class="text-gray-400 text-4xl">🔧</span>
+                @endif
+        </div>
             <div class="p-4">
                 <span class="text-xs text-orange-500 font-semibold uppercase">
                     {{ $product->category->name ?? 'Sans catégorie' }}
